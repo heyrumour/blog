@@ -1,14 +1,22 @@
 <template>
   <div class="tab-wrapper">
-    <tab active-color="#e75581" v-if="type == 'index'">
+    <tab active-color="#e75581" :line-width="0" v-if="type == 'index'">
       <tab-item selected @on-item-click="onItemClick('index')">首页</tab-item>
-      <!-- <tab-item @on-item-click="onItemClick">+</tab-item> -->
+      <tab-item class="new-wrapper" @on-item-click="onNewClick()">
+        <x-icon class="icon-new" type="ios-plus-empty" size="30"></x-icon>
+      </tab-item>
       <tab-item @on-item-click="onItemClick('person')">我的</tab-item>
     </tab>
-    <tab active-color="#e75581" v-else>
+    <tab active-color="#e75581" :line-width="0" v-else-if="type == 'person'">
       <tab-item @on-item-click="onItemClick('index')">首页</tab-item>
-      <!-- <tab-item @on-item-click="onItemClick">+</tab-item> -->
+      <tab-item class="new-wrapper" @on-item-click="onNewClick()">
+        <x-icon class="icon-new" type="ios-plus-empty" size="30"></x-icon>
+      </tab-item>
       <tab-item selected @on-item-click="onItemClick('person')">我的</tab-item>
+    </tab>
+    <tab active-color="#e75581" :line-width="0" v-else>
+      <tab-item @on-item-click="onItemClick('index')">首页</tab-item>
+      <tab-item @on-item-click="onItemClick('person')">我的</tab-item>
     </tab>
   </div>
 </template>
@@ -24,13 +32,22 @@ export default {
     TabItem
   },
   data() {
-    return {};
+    return {
+      getBarWidth: function(index) {
+        return (index + 1) * 22 + "px";
+      }
+    };
   },
   methods: {
     onItemClick(index) {
       this.$router.push({
         name: index
       });
+    },
+    onNewClick() {
+       this.$router.push({
+        name: 'add'
+      }); 
     }
   }
 };
@@ -44,7 +61,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  border-top: 1px solid #D9D9D9;
+  border-top: 1px solid #d9d9d9;
 }
 .box {
   padding: 15px;
@@ -52,5 +69,14 @@ export default {
 .tab-swiper {
   background-color: #fff;
   height: 100px;
+}
+.new-wrapper {
+  position: relative;
+  .icon-new {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 </style>

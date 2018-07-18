@@ -1,6 +1,7 @@
 // 将所有的mock文件引入
 require('@/mock/loginMock')
 require('@/mock/blogListMock')
+require('@/mock/addMock')
 // 做一些通用的配置
 const Mock = require("mockjs")
 
